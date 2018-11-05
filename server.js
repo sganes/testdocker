@@ -20,6 +20,15 @@ app.post('/users', (req, res) => {
     }); 
 });
 
+app.get('/users', (req, res) => {
+    mongoDbConnect((client)=>{
+        db = client.db('DockerTest');
+        db.collection('users').find({}).toArray(function(err, docs) {
+			if (err) return next(err);
+			return res.send(docs);
+          });
+    }); 
+});
 
 //app listining
 app.listen(3000, () => {
