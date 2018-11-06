@@ -1,6 +1,6 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = 'mongodb://' + (process.env.MONGO_PORT_27017_TCP_ADDR || 'localhost') + ':' + (process.env.MONGO_PORT_27017_TCP_PORT || '27017');
-
+const uri = 'mongo:27017/DockerTest';
+mongoose.connect('database:27017/mongocrud')
 console.log(uri)
 
 module.exports = function(callback) {
