@@ -1,5 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = 'mongo:27017/DockerTest';
+const uri = 'mongodb://mongo:27017'
 console.log(uri)
 module.exports = function(callback) {
   MongoClient.connect(uri,{ useNewUrlParser: true },(err,client) => {
