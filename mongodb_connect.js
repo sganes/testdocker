@@ -1,6 +1,5 @@
 const MongoClient = require('mongodb').MongoClient;
-const uri = 'mongodb://0.0.0.0:27017'
-console.log(uri)
+const uri = 'mongodb://mongo'
 module.exports = function(callback) {
   MongoClient.connect(uri,{ useNewUrlParser: true },(err,client) => {
       if(err)

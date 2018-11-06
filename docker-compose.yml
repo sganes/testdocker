@@ -8,9 +8,9 @@ services:
       - "3000:3000"
     links:
       - mongo
-  mongo:
-    container_name: mongo
-    image: mongo
+  mongo: 
+    container_name: mongoDB
+    image: mongo:latest
     ports:
       - "27017:27017"
-      
+    command: mongod --port 27017
