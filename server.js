@@ -1,5 +1,5 @@
 const express = require('express');
-const  mongoDbConnect = require('./mongodb_connect');
+const mongoDbConnect = require('./mongodb_connect');
 var app = express();
 const bodyParser = require('body-parser');
 
@@ -11,23 +11,25 @@ app.get('/welcome', (req, res) => {
 });
 
 app.post('/users', (req, res) => {
-    mongoDbConnect((client)=>{
+    mongoDbConnect((client) => {
         db = client.db('DockerTest');
-        db.collection('users').insertOne(req.body, (err, result) => {
+        db.collection('docusers').insertOne(req.body, (err, result) => {
             if (err)
-               res.status(200).send('Document Saved');
-          });
-    }); 
+                res.status(400).send(err);
+            res.status(200).send('Document Saved');
+        });
+    });
 });
 
 app.get('/users', (req, res) => {
-    mongoDbConnect((client)=>{
+    mongoDbConnect((client) => {
         db = client.db('DockerTest');
-        db.collection('users').find({}).toArray(function(err, docs) {
-			if (err) return next(err);
-			return res.send(docs);
-          });
-    }); 
+        db.collection('docusers').find({}).toArray(function (err, docs) {
+            if (err)
+                res.status(400).send(err);
+            res.send(docs);
+        });
+    });
 });
 
 //app listining
