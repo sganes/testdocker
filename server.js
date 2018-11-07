@@ -28,7 +28,7 @@ app.get('/users', (req, res) => {
         db.collection('docusers').find({}).toArray(function (err, docs) {
             if(docs.length < 1)
             {
-                const seedData = {"name":"defaultname"}
+                const seedData = {"name":"seedname"}
                 mongoDbConnect((client) => {
                     db = client.db('DockerTest');
                     db.collection('docusers').insertOne(seedData, (err, result) => {
