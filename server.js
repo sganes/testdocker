@@ -6,14 +6,6 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
- mongoDbConnect((client) => {
-        db = client.db('DockerTest');
-        db.collection('docusers').insertOne({"seedName":"default"},(err, result) => {
-            if (err)
-                console.log(err);
-            console.log('Document Seeded');
-        });
-});
 
 app.get('/welcome', (req, res) => {
     res.send("Welcome To My First Docker Project");
@@ -34,9 +26,20 @@ app.get('/users', (req, res) => {
     mongoDbConnect((client) => {
         db = client.db('DockerTest');
         db.collection('docusers').find({}).toArray(function (err, docs) {
-            if (err)
+            if(docs.length < 1)
+            {
+                const seedData = {"name":"defaultname"}
+                mongoDbConnect((client) => {
+                    db = client.db('DockerTest');
+                    db.collection('docusers').insertOne(seedData, (err, result) => {
+                        res.send(seedData)
+                    });
+                }); 
+            }
+            else if (err)
                 res.status(400).send(err);
-            res.send(docs);
+            else
+                res.send(docs);
         });
     });
 });
