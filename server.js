@@ -6,6 +6,15 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
+ mongoDbConnect((client) => {
+        db = client.db('DockerTest');
+        db.collection('docusers').insertOne({"seedName":"default"},(err, result) => {
+            if (err)
+                console.log(err);
+            console.log('Document Seeded');
+        });
+});
+
 app.get('/welcome', (req, res) => {
     res.send("Welcome To My First Docker Project");
 });
