@@ -8,8 +8,10 @@ app.use(bodyParser.json());
 
 
 app.get('/welcome', (req, res) => {
-    res.send("Welcome To My First Docker Project");
+    const appenv = process.env.appenv || "Development"
+    res.send(`Welcome To My First Docker Project in  ${appenv} environment`);
 });
+
 
 app.post('/users', (req, res) => {
     mongoDbConnect((client) => {
